@@ -5,9 +5,13 @@
 	"minVersion": "0.7.3",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
-	],
-	"client": [
+		"MixinEntityPlayer",
 		"MixinGuiIngame",
-		"MixinMinecraft"
+		"MixinMinecraft",
+		"protocol4.MixinC00Handshake",
+		"protocol4.MixinS02PacketLoginSuccess",
+		"protocol4.MixinS0CPacketSpawnPlayer",
+		"protocol4.MixinServerStatusResponse_MinecraftProtocolVersionIdentifier",
+		"protocol4.MixinTileEntitySkull"
 	]
 }
