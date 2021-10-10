@@ -1,0 +1,12 @@
+[
+	{
+		"modid": "${modId}",
+		"name": "${modName}",
+		"description": "Helpful hackeroo for the Nullspace tech server.",
+		"version": "${version}",
+		"mcversion": "1.7.10",
+		"authorList": [
+			"nessiesson"
+		]
+	}
+]

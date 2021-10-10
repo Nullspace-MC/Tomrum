@@ -1,0 +1,12 @@
+{
+	"required": true,
+	"package": "net.dugged.tomrum.mixins",
+	"refmap": "mixins.tomrum.refmap.json",
+	"minVersion": "0.7.3",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+	],
+	"client": [
+		"MixinMinecraft"
+	]
+}

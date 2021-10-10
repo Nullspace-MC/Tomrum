@@ -1,0 +1,95 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		maven { url = "https://maven.minecraftforge.net" }
+		maven {
+			url = "https://oss.sonatype.org/content/repositories/snapshots/"
+		}
+	}
+	dependencies {
+		classpath group: "com.anatawa12.forge", name: "ForgeGradle", version: "1.2-1.0.+", changing: true
+	}
+}
+
+apply plugin: "forge"
+
+version = "0.3.0"
+def modName = "Tomrum".toString()
+def modId = modName.toLowerCase()
+group = "net.dugged.${modId}"
+def loadingPlugin = "${group}.${modName}LoadingPlugin"
+archivesBaseName = modName
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = "1.8"
+compileJava.options.encoding = compileTestJava.options.encoding = "UTF-8"
+
+minecraft {
+	version = "1.7.10-10.13.4.1614-1.7.10"
+	mappings = "stable_12"
+	runDir = "run"
+
+	println "-Dfml.coreMods.load=$loadingPlugin"
+
+	replaceIn "Reference.java"
+	replace "@VERSION@", project.version
+	replace "@MODNAME@", modName
+	replace "@MODID@", modId
+}
+
+jar.manifest.attributes(
+		"FMLCorePluginContainsFMLMod": true,
+		"FMLCorePlugin": loadingPlugin,
+		"ForceLoadAsMod": true,
+		"TweakClass": "org.spongepowered.asm.launch.MixinTweaker",
+)
+
+processResources {
+	inputs.property "modName", modName
+	inputs.property "modId", modId
+	inputs.property "version", project.version
+	inputs.property "mcversion", project.minecraft.version
+
+	from(sourceSets.main.resources.srcDirs) {
+		include "mcmod.info"
+		expand "version": project.version, "mcversion": project.minecraft.version, "modName": modName, "modId": modId
+	}
+
+	from(sourceSets.main.resources.srcDirs) {
+		exclude "mcmod.info"
+	}
+}
+
+def mixinSrg = file("${tasks.reobf.temporaryDir}/mixins.srg")
+def mixinRefMap = file("${tasks.compileJava.temporaryDir}/mixins.${modId}.refmap.json")
+afterEvaluate {
+	tasks.compileJava.options.compilerArgs += ["-AreobfSrgFile=${tasks.reobf.srg}", "-AoutSrgFile=${mixinSrg}", "-AoutRefMapFile=${mixinRefMap}"]
+}
+
+reobf {
+	addExtraSrgFile mixinSrg
+}
+
+repositories {
+	maven { url = "https://repo.spongepowered.org/repository/maven-public" }
+}
+
+configurations {
+	shade
+	implementation.extendsFrom shade
+}
+
+dependencies {
+	shade("org.spongepowered:mixin:0.7.11-SNAPSHOT") {
+		transitive = false
+	}
+	annotationProcessor "org.spongepowered:mixin:0.7.11-SNAPSHOT"
+}
+
+jar {
+	from sourceSets.main.output
+	from mixinRefMap
+
+	from(configurations.shade.collect { it.isDirectory() ? it : zipTree(it) }) {
+		exclude "META-INF/*.RSA", "META-INF/*.SF", "META-INF/*.DSA"
+	}
+}
