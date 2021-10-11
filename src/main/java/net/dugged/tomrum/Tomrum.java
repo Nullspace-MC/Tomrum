@@ -37,7 +37,11 @@ public class Tomrum {
 	}
 
 	public void onPlayerPreTick(final EntityPlayer player) {
-		player.noClip = player.capabilities.isCreativeMode && player.capabilities.isFlying;
+		final boolean isCreativelyFlying = player.capabilities.isCreativeMode && player.capabilities.isFlying;
+		player.noClip = isCreativelyFlying;
+		if (isCreativelyFlying) {
+			player.capabilities.setFlySpeed(player.isSprinting() ? 0.08F : 0.05F);
+		}
 	}
 
 	@SubscribeEvent
