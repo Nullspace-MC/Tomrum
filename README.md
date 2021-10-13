@@ -5,6 +5,8 @@ Adds some useful features for mainly creative dev:
 * Simple implementation of Protocol4 which lets you connect to 1.7.4 and below.
 * Add 1.10 vanilla F3+G chunk border display.
 * Basic blinking piston fix (mostly works).
+* Fix for scoreboard sidebar hiding when there are more than 15 players on the scoreboard.
+* Fullbright setting by sliding brightness slider to max.
 * Creative Mode sprinting while flying.
 * Creative Mode noclip (toggleable).
 * Creative Mode flight nodrift/flight inertia cancellation (toggleable).
