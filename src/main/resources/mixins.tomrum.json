@@ -9,8 +9,6 @@
 		"CMixinBlinkingPistonFix$MixinTileEntityRendererPiston",
 		"CMixinCreativeNoclip$MixinPlayerControllerMP",
 		"CMixinCreativeNoclip$MixinTileEntityPiston",
-		"CMixinForgeEvents$MixinEntityPlayer",
-		"CMixinForgeEvents$MixinMinecraft",
 		"MixinGameSettings",
 		"MixinGuiIngame",
 		"protocol4.MixinC00Handshake",
