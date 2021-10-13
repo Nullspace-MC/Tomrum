@@ -13,7 +13,7 @@ buildscript {
 
 apply plugin: "forge"
 
-version = "0.0.1"
+version = "0.1.0"
 def modName = "Tomrum".toString()
 def modId = modName.toLowerCase()
 group = "net.dugged.${modId}"
