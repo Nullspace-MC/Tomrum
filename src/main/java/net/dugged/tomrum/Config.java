@@ -13,7 +13,8 @@ public class Config {
 	private final Configuration config;
 	public boolean creativeNoclip = true;
 	public boolean flightInertiaCancellation = false;
-	public boolean ignoreEntityWhenPlacing = false;
+	public boolean ignoreEntityWhenPlacing = true;
+	public boolean alwaysPickBlockMaxStack = false;
 
 	public Config(File path) {
 		config = new Configuration(path);
@@ -41,6 +42,11 @@ public class Config {
 		prop = config.get(Configuration.CATEGORY_GENERAL, "ignoreEntityWhenPlacing", this.ignoreEntityWhenPlacing);
 		prop.comment = "Allows you to place blocks inside yourself in creative mode.";
 		this.ignoreEntityWhenPlacing = prop.getBoolean(this.ignoreEntityWhenPlacing);
+		order.add(prop.getName());
+
+		prop = config.get(Configuration.CATEGORY_GENERAL, "alwaysPickBlockMaxStack", this.alwaysPickBlockMaxStack);
+		prop.comment = "Always pickblock a full stack in creative mode.";
+		this.alwaysPickBlockMaxStack = prop.getBoolean(this.alwaysPickBlockMaxStack);
 		order.add(prop.getName());
 
 		config.setCategoryPropertyOrder(Configuration.CATEGORY_GENERAL, order);
