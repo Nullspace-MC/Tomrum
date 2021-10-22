@@ -58,7 +58,7 @@ public class Tomrum {
 		final Minecraft mc = Minecraft.getMinecraft();
 		final EntityPlayer player = event.player;
 		final boolean isCreativelyFlying = player.capabilities.isCreativeMode && player.capabilities.isFlying;
-		player.noClip = isCreativelyFlying;
+		player.noClip = CONFIG.creativeNoclip && isCreativelyFlying;
 		if (isCreativelyFlying) {
 			player.capabilities.setFlySpeed(player.isSprinting() ? 0.08F : 0.05F);
 		}
