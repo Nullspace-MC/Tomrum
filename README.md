@@ -7,6 +7,7 @@ Adds some useful features for mainly creative dev:
 * Basic blinking piston fix (mostly works).
 * Fix for scoreboard sidebar hiding when there are more than 15 players on the scoreboard.
 * Fullbright setting by sliding brightness slider to max.
+* Increased chat limit (8x length, i.e., 800 chars).
 * Creative Mode sprinting while flying.
 * Creative Mode noclip (toggleable).
 * Creative Mode flight nodrift/flight inertia cancellation (toggleable).

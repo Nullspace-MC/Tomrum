@@ -2,6 +2,7 @@ package net.dugged.tomrum.mixins.protocol4;
 
 import com.mojang.util.UUIDTypeAdapter;
 import net.dugged.tomrum.Tomrum;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S0CPacketSpawnPlayer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,6 +17,11 @@ public abstract class MixinS0CPacketSpawnPlayer {
 	@Redirect(method = "readPacketData", at = @At(value = "INVOKE", target = "Ljava/util/UUID;fromString(Ljava/lang/String;)Ljava/util/UUID;", remap = false))
 	private UUID onReadPacketData(final String uuid) {
 		return Tomrum.INSTANCE.v4Protocol ? UUIDTypeAdapter.fromString(uuid) : UUID.fromString(uuid);
+	}
+
+	@Redirect(method = "readPacketData", at = @At(value = "INVOKE", target = "Lnet/minecraft/network/PacketBuffer;readVarIntFromBuffer()I", ordinal = 1))
+	private int adjustPropertyCount(final PacketBuffer buffer) {
+		return Tomrum.INSTANCE.v4Protocol ? 0 : buffer.readVarIntFromBuffer();
 	}
 
 	@Redirect(method = "writePacketData", at = @At(value = "INVOKE", target = "Ljava/util/UUID;toString()Ljava/lang/String;", remap = false))

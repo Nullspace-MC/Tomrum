@@ -10,12 +10,14 @@
 		"CMixinCreativeNoclip$MixinPlayerControllerMP",
 		"CMixinCreativeNoclip$MixinTileEntityPiston",
 		"MixinGameSettings",
+		"MixinGuiChat",
 		"MixinGuiIngame",
 		"MixinMinecraft",
 		"protocol4.MixinC00Handshake",
 		"protocol4.MixinS02PacketLoginSuccess",
 		"protocol4.MixinS0CPacketSpawnPlayer",
 		"protocol4.MixinServerStatusResponse_MinecraftProtocolVersionIdentifier",
+		"protocol4.MixinServerStatusResponse_PlayerCountData_Serializer",
 		"protocol4.MixinTileEntitySkull"
 	]
 }

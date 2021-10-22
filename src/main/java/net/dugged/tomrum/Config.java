@@ -12,6 +12,7 @@ public class Config {
 	@IgnoreInGui
 	private final Configuration config;
 	public boolean creativeNoclip = true;
+	public boolean extendedChat = true;
 	public boolean flightInertiaCancellation = false;
 	public boolean ignoreEntityWhenPlacing = true;
 	public boolean alwaysPickBlockMaxStack = false;
@@ -47,6 +48,11 @@ public class Config {
 		prop = config.get(Configuration.CATEGORY_GENERAL, "alwaysPickBlockMaxStack", this.alwaysPickBlockMaxStack);
 		prop.comment = "Always pickblock a full stack in creative mode.";
 		this.alwaysPickBlockMaxStack = prop.getBoolean(this.alwaysPickBlockMaxStack);
+		order.add(prop.getName());
+
+		prop = config.get(Configuration.CATEGORY_GENERAL, "extendedChat", this.extendedChat);
+		prop.comment = "Extend chat 8x length (splits up messages and thus cannot be used for long commands).";
+		this.extendedChat = prop.getBoolean(this.extendedChat);
 		order.add(prop.getName());
 
 		config.setCategoryPropertyOrder(Configuration.CATEGORY_GENERAL, order);
