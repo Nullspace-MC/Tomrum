@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPistonExtension;
 import net.minecraft.init.Blocks;
+import net.minecraft.util.Facing;
 import net.minecraft.util.IIcon;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -44,9 +45,14 @@ public abstract class CMixinStickyPistonSides {
 	public static abstract class MixinBlockPistonExtension {
 		@Inject(method = "getIcon", at = @At("RETURN"), cancellable = true)
 		private void slimeTheExtension(final int side, final int meta, final CallbackInfoReturnable<IIcon> cir) {
-			if ((meta & 8) != 0 && "piston_side".equals(cir.getReturnValue().getIconName())) {
-				cir.setReturnValue(BlockPistonBase.getPistonBaseIcon("piston_top_sticky"));
-			}
+            if ((meta & 8) != 0) {
+                int k = BlockPistonExtension.getDirectionMeta(meta);
+                if (k < 6 && side == Facing.oppositeSide[k]) {
+                    cir.setReturnValue(BlockPistonBase.getPistonBaseIcon("piston_top_sticky"));
+                } else if ("piston_side".equals(cir.getReturnValue().getIconName())) {
+                    cir.setReturnValue(BlockPistonBase.getPistonBaseIcon("piston_side_sticky"));
+                }
+            }
 		}
 	}
 }
