@@ -46,7 +46,7 @@ public abstract class CMixinStickyPistonSides {
 		@Inject(method = "getIcon", at = @At("RETURN"), cancellable = true)
 		private void slimeTheExtension(final int side, final int meta, final CallbackInfoReturnable<IIcon> cir) {
             if ((meta & 8) != 0) {
-                int k = BlockPistonExtension.getDirectionMeta(meta);
+                final int k = BlockPistonExtension.getDirectionMeta(meta);
                 if (k < 6 && side == Facing.oppositeSide[k]) {
                     cir.setReturnValue(BlockPistonBase.getPistonBaseIcon("piston_top_sticky"));
                 } else if ("piston_side".equals(cir.getReturnValue().getIconName())) {
