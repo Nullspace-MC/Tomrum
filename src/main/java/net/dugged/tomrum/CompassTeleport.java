@@ -36,7 +36,7 @@ public class CompassTeleport {
 		final float clampedY = MathHelper.clamp_float(y, 0, world.getHeight());
 		final float halfWidth = player.width / 2F;
 		final AxisAlignedBB bb = AxisAlignedBB.getBoundingBox(x - halfWidth, clampedY, z - halfWidth, x + halfWidth, clampedY + player.height, z + halfWidth);
-		while (!world.checkBlockCollision(bb)) {
+		while (bb.minY < clampedY && !world.checkBlockCollision(bb)) {
 			bb.offset(0F, 1F, 0F);
 		}
 
