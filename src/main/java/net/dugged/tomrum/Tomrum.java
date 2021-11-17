@@ -25,6 +25,7 @@ public class Tomrum {
 	public static Config CONFIG;
 	public static Logger LOGGER;
 	private final ChunkBorderRenderer chunkBorderRenderer = new ChunkBorderRenderer();
+	public final CompassTeleport compass = new CompassTeleport();
 	public boolean v4Protocol = true;
 
 	@Mod.EventHandler

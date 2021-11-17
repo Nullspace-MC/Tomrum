@@ -14,3 +14,4 @@ Adds some useful features for mainly creative dev:
 * Creative Mode flight nodrift/flight inertia cancellation (toggleable).
 * Creative Mode allow-you-to-place-blocks-inside-yourself (toggleable).
 * Creative Mode always pickblock a full stack (toggleable).
+* Creative Mode teleporting compass (toggleable).
