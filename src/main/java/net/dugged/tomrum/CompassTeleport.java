@@ -12,13 +12,13 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 
 public class CompassTeleport {
-	public static boolean shouldLeftClickNormally() {
+	public static boolean hasTeleportingCompass() {
 		final EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-		return !Tomrum.CONFIG.compassTeleport || !player.capabilities.isCreativeMode || player.getHeldItem() == null || player.getHeldItem().getItem() != Items.compass;
+		return Tomrum.CONFIG.compassTeleport && player.capabilities.isCreativeMode && player.getHeldItem() != null && player.getHeldItem().getItem() == Items.compass;
 	}
 
 	public boolean onLeftClick() {
-		if (shouldLeftClickNormally()) {
+		if (!hasTeleportingCompass()) {
 			return true;
 		}
 

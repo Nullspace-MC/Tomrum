@@ -31,6 +31,6 @@ public abstract class MixinMinecraft {
 
 	@ModifyArg(method = "runTick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/Minecraft;sendClickBlockToController(Z)V"))
 	private boolean shouldClick(final boolean leftClick) {
-		return leftClick && CompassTeleport.shouldLeftClickNormally();
+		return leftClick && !CompassTeleport.hasTeleportingCompass();
 	}
 }
