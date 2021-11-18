@@ -9,6 +9,8 @@ import cpw.mods.fml.common.gameevent.InputEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraft.client.gui.GuiMultiplayer;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentTranslation;
@@ -26,6 +28,7 @@ public class Tomrum {
 	public static Tomrum INSTANCE;
 	public static Config CONFIG;
 	public static Logger LOGGER;
+	private long clientTicks;
 	private final ChunkBorderRenderer chunkBorderRenderer = new ChunkBorderRenderer();
 	public final CompassTeleport compass = new CompassTeleport();
 	public boolean v4Protocol = true;
@@ -93,6 +96,14 @@ public class Tomrum {
 			if ("commands.tp.success.coordinates".equals(message.getKey()) && CompassTeleport.hasTeleportingCompass()) {
 				event.setCanceled(true);
 			}
+		}
+	}
+
+	@SubscribeEvent
+	public void onClientTick(final TickEvent.ClientTickEvent event) {
+		final Minecraft mc = Minecraft.getMinecraft();
+		if (event.phase == Phase.START && mc.currentScreen instanceof GuiMultiplayer && clientTicks++ % 600L == 0L) {
+			mc.displayGuiScreen(new GuiMultiplayer(new GuiMainMenu()));
 		}
 	}
 }
