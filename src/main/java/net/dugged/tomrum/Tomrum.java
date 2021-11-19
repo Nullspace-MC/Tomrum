@@ -31,6 +31,7 @@ public class Tomrum {
 	private long clientTicks;
 	private final ChunkBorderRenderer chunkBorderRenderer = new ChunkBorderRenderer();
 	public final CompassTeleport compass = new CompassTeleport();
+	public boolean isStickySide;
 	public boolean v4Protocol = true;
 
 	@Mod.EventHandler

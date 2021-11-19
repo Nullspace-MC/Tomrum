@@ -12,6 +12,8 @@
 		"CMixinStickyPistonSides$IMixinBlock",
 		"CMixinStickyPistonSides$MixinBlockPistonBase",
 		"CMixinStickyPistonSides$MixinBlockPistonExtension",
+		"CMixinStickyPistonSides$MixinRenderBlocks",
+		"CMixinStickyPistonSides$MixinTileEntityRendererPiston",
 		"IMixinMinecraft",
 		"MixinGameSettings",
 		"MixinGuiChat",
