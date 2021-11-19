@@ -28,7 +28,12 @@ public abstract class CMixinCreativeNoclip {
 	public static abstract class MixinTileEntityPiston {
 		@Redirect(method = "func_145863_a", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;getEntitiesWithinAABBExcludingEntity(Lnet/minecraft/entity/Entity;Lnet/minecraft/util/AxisAlignedBB;)Ljava/util/List;"))
 		private List<Entity> stopNoclipPistonMovement(final World world, final Entity entity, final AxisAlignedBB bb) {
-			return Tomrum.CONFIG.creativeNoclip ? world.getEntitiesWithinAABBExcludingEntity(entity, bb, e -> !e.noClip) : world.getEntitiesWithinAABBExcludingEntity(entity, bb);
+			final List<Entity> toBeMoved = world.getEntitiesWithinAABBExcludingEntity(entity, bb);
+			if (Tomrum.CONFIG.creativeNoclip) {
+				toBeMoved.removeIf(e -> e.noClip);
+			}
+
+			return toBeMoved;
 		}
 	}
 }
