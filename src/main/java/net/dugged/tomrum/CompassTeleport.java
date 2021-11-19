@@ -23,7 +23,7 @@ public class CompassTeleport {
 		}
 
 		final EntityClientPlayerMP player = Minecraft.getMinecraft().thePlayer;
-		final MovingObjectPosition raytrace = this.rayTrace(player, 500D);
+		final MovingObjectPosition raytrace = this.rayTrace(player, 256D);
 		if (raytrace == null) {
 			return true;
 		}
