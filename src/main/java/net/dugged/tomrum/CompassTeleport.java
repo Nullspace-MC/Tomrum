@@ -29,6 +29,7 @@ public class CompassTeleport {
 		}
 
 		this.teleportToSafeLocation(player, raytrace.blockX, raytrace.blockY, raytrace.blockZ);
+		player.swingItem();
 		return false;
 	}
 
