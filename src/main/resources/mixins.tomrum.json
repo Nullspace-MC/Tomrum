@@ -13,6 +13,7 @@
 		"CMixinStickyPistonSides$MixinBlockPistonBase",
 		"CMixinStickyPistonSides$MixinBlockPistonExtension",
 		"CMixinStickyPistonSides$MixinRenderBlocks",
+		"CMixinStickyPistonSides$MixinWorldClient",
 		"IMixinMinecraft",
 		"MixinGameSettings",
 		"MixinGuiChat",

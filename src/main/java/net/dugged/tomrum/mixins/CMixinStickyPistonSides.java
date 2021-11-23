@@ -4,10 +4,17 @@ import net.dugged.tomrum.Tomrum;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPistonExtension;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.init.Blocks;
+import net.minecraft.profiler.Profiler;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityPiston;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldProvider;
+import net.minecraft.world.WorldSettings;
+import net.minecraft.world.storage.ISaveHandler;
 import org.spongepowered.asm.lib.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -69,6 +76,7 @@ public abstract class CMixinStickyPistonSides {
 
 	@Mixin(RenderBlocks.class)
 	public static abstract class MixinRenderBlocks {
+		@SuppressWarnings("InvalidInjectorMethodSignature")
 		@Inject(method = "renderPistonExtension", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/IBlockAccess;getBlockMetadata(III)I"), locals = LocalCapture.CAPTURE_FAILHARD)
 		public void determineIfSticky(final Block block, final int x, final int y, final int z, final boolean isShort, final CallbackInfoReturnable<Boolean> cir, final int meta) {
 			Tomrum.INSTANCE.pistonExtensionTexture = (meta & 8) != 0 ? "piston_side_sticky" : "piston_side";
@@ -77,6 +85,23 @@ public abstract class CMixinStickyPistonSides {
 		@ModifyArg(method = {"renderPistonRodUD", "renderPistonRodSN", "renderPistonRodEW"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockPistonBase;getPistonBaseIcon(Ljava/lang/String;)Lnet/minecraft/util/IIcon;"))
 		private String onRenderPistonExtension(final String value) {
 			return Tomrum.INSTANCE.pistonExtensionTexture;
+		}
+	}
+
+	@Mixin(WorldClient.class)
+	public static abstract class MixinWorldClient extends World {
+		public MixinWorldClient(final ISaveHandler ish, final String name, final WorldProvider wp, final WorldSettings ws, final Profiler p) {
+			super(ish, name, wp, ws, p);
+		}
+
+		@Inject(method = "func_147492_c", at = @At("HEAD"), cancellable = true)
+		private void onRetractionBaseB36(final int x, final int y, final int z, final Block block, final int meta, final CallbackInfoReturnable<Boolean> cir) {
+			if (block == Blocks.piston_extension && this.getBlock(x, y, z) == Blocks.piston_extension) {
+				final TileEntity te = this.getTileEntity(x, y, z);
+				if (te instanceof TileEntityPiston && !((TileEntityPiston) te).isExtending()) {
+					cir.setReturnValue(false);
+				}
+			}
 		}
 	}
 }
