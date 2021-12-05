@@ -18,6 +18,7 @@
 		"MixinGameSettings",
 		"MixinGuiChat",
 		"MixinGuiIngame",
+		"MixinGuiMultiplayer",
 		"MixinMinecraft",
 		"protocol4.MixinC00Handshake",
 		"protocol4.MixinS02PacketLoginSuccess",

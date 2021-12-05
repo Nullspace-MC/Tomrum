@@ -13,6 +13,7 @@ public class Config {
 	public boolean creativeNoclip = true;
 	public boolean extendedChat = true;
 	public boolean flightInertiaCancellation = false;
+	public boolean hideLanServers = true;
 	public boolean ignoreEntityWhenPlacing = true;
 
 	public Config(File path) {
@@ -30,6 +31,7 @@ public class Config {
 		this.creativeNoclip = config.getBoolean("creativeNoclip", Configuration.CATEGORY_GENERAL, this.creativeNoclip, "Allows you to noclip through blocks while flying in creative mode.");
 		this.extendedChat = config.getBoolean("extendedChat", Configuration.CATEGORY_GENERAL, this.extendedChat, "Extend chat 8x length (splits up messages and thus cannot be used for long commands).");
 		this.flightInertiaCancellation = config.getBoolean("flightInertiaCancellation", Configuration.CATEGORY_GENERAL, this.flightInertiaCancellation, "Stops creative flight drift.");
+		this.hideLanServers = config.getBoolean("hideLanServers", Configuration.CATEGORY_GENERAL, this.hideLanServers, "Hides (and stops) MC from showing and searching for LAN servers.");
 		this.ignoreEntityWhenPlacing = config.getBoolean("ignoreEntityWhenPlacing", Configuration.CATEGORY_GENERAL, this.ignoreEntityWhenPlacing, "Allows you to place blocks inside yourself in creative mode.");
 
 		if (config.hasChanged()) {
