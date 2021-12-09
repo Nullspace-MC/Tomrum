@@ -15,6 +15,7 @@
 		"CMixinStickyPistonSides$MixinRenderBlocks",
 		"CMixinStickyPistonSides$MixinWorldClient",
 		"IMixinMinecraft",
+		"ISoundHandler",
 		"MixinGameSettings",
 		"MixinGuiChat",
 		"MixinGuiIngame",
