@@ -108,9 +108,17 @@ public class Tomrum {
 
 	@SubscribeEvent
 	public void onChat(final ClientChatReceivedEvent event) {
+		if (!CompassTeleport.hasTeleportingCompass()) {
+			return;
+		}
+
 		if (event.message instanceof ChatComponentTranslation) {
-			final ChatComponentTranslation message = (ChatComponentTranslation) event.message;
-			if ("commands.tp.success.coordinates".equals(message.getKey()) && CompassTeleport.hasTeleportingCompass()) {
+			ChatComponentTranslation message = (ChatComponentTranslation) event.message;
+			if ("chat.type.admin".equals(message.getKey())) {
+				message = (ChatComponentTranslation) message.getFormatArgs()[1];
+			}
+
+			if ("commands.tp.success.coordinates".equals(message.getKey())) {
 				event.setCanceled(true);
 			}
 		}
