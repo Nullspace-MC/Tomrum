@@ -40,7 +40,7 @@ public class Tomrum {
 	public boolean v4Protocol = true;
 
 	@Mod.EventHandler
-	public void preInit(final FMLPreInitializationEvent event) {
+	private void preInit(final FMLPreInitializationEvent event) {
 		MinecraftForge.EVENT_BUS.register(this);
 		FMLCommonHandler.instance().bus().register(this);
 		CONFIG = new Config(event.getSuggestedConfigurationFile());
@@ -48,19 +48,19 @@ public class Tomrum {
 	}
 
 	@Mod.EventHandler
-	public void init(final FMLInitializationEvent event) {
+	private void init(final FMLInitializationEvent event) {
 		ClientRegistry.registerKeyBinding(this.reloadAudioEngineKey);
 	}
 
 	@SubscribeEvent
-	public void onConfigChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
+	private void onConfigChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
 		if (Reference.MODID.equals(event.modID)) {
 			CONFIG.sync(false);
 		}
 	}
 
 	@SubscribeEvent
-	public void onKeyPress(final InputEvent.KeyInputEvent event) {
+	private void onKeyPress(final InputEvent.KeyInputEvent event) {
 		if (Keyboard.isKeyDown(Keyboard.KEY_F3) && Keyboard.isKeyDown(Keyboard.KEY_G)) {
 			this.chunkBorderRenderer.toggleVisibility();
 		}
@@ -71,7 +71,7 @@ public class Tomrum {
 	}
 
 	@SubscribeEvent
-	public void onPlayerPreTick(final TickEvent.PlayerTickEvent event) {
+	private void onPlayerPreTick(final TickEvent.PlayerTickEvent event) {
 		if (event.phase != Phase.START) {
 			return;
 		}
@@ -93,19 +93,19 @@ public class Tomrum {
 	}
 
 	@SubscribeEvent
-	public void onRenderWorld(final RenderWorldLastEvent event) {
+	private void onRenderWorld(final RenderWorldLastEvent event) {
 		this.chunkBorderRenderer.render(event.partialTicks);
 	}
 
 	@SubscribeEvent
-	public void onRenderBlockOverlay(final RenderBlockOverlayEvent event) {
+	private void onRenderBlockOverlay(final RenderBlockOverlayEvent event) {
 		if (CONFIG.creativeNoclip && event.overlayType == OverlayType.BLOCK && event.player.capabilities.isCreativeMode) {
 			event.setCanceled(true);
 		}
 	}
 
 	@SubscribeEvent
-	public void onChat(final ClientChatReceivedEvent event) {
+	private void onChat(final ClientChatReceivedEvent event) {
 		if (event.message instanceof ChatComponentTranslation) {
 			final ChatComponentTranslation message = (ChatComponentTranslation) event.message;
 			if ("commands.tp.success.coordinates".equals(message.getKey()) && CompassTeleport.hasTeleportingCompass()) {
@@ -115,7 +115,7 @@ public class Tomrum {
 	}
 
 	@SubscribeEvent
-	public void onClientTick(final TickEvent.ClientTickEvent event) {
+	private void onClientTick(final TickEvent.ClientTickEvent event) {
 		final Minecraft mc = Minecraft.getMinecraft();
 		if (event.phase == Phase.START && mc.currentScreen instanceof GuiMultiplayer && clientTicks++ % 600L == 0L) {
 			mc.displayGuiScreen(new GuiMultiplayer(new GuiMainMenu()));
