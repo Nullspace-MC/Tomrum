@@ -12,13 +12,14 @@ import cpw.mods.fml.common.gameevent.TickEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.Phase;
 import net.dugged.tomrum.mixins.ISoundHandler;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.gui.GuiMultiplayer;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentTranslation;
 import net.minecraftforge.client.event.ClientChatReceivedEvent;
+import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent.OverlayType;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -34,6 +35,7 @@ public class Tomrum {
 	public static Logger LOGGER;
 	private final KeyBinding reloadAudioEngineKey = new KeyBinding("key.tomrum.reload_audio", Keyboard.KEY_B, "key.categories.misc");
 	private final ChunkBorderRenderer chunkBorderRenderer = new ChunkBorderRenderer();
+	private GuiScreen previousScreen;
 	private long clientTicks;
 	public final CompassTeleport compass = new CompassTeleport();
 	public String pistonExtensionTexture;
@@ -115,10 +117,18 @@ public class Tomrum {
 	}
 
 	@SubscribeEvent
+	private void onChangeScreen(final GuiOpenEvent event) {
+		final GuiScreen previous = Minecraft.getMinecraft().currentScreen;
+		if(!(previous instanceof GuiMultiplayer)) {
+			this.previousScreen = previous;
+		}
+	}
+
+	@SubscribeEvent
 	private void onClientTick(final TickEvent.ClientTickEvent event) {
 		final Minecraft mc = Minecraft.getMinecraft();
 		if (event.phase == Phase.START && mc.currentScreen instanceof GuiMultiplayer && clientTicks++ % 600L == 0L) {
-			mc.displayGuiScreen(new GuiMultiplayer(new GuiMainMenu()));
+			mc.displayGuiScreen(new GuiMultiplayer(this.previousScreen));
 		}
 	}
 }
