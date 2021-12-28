@@ -18,6 +18,7 @@
 		"ISoundHandler",
 		"MixinGameSettings",
 		"MixinGuiChat",
+		"MixinGuiContainer",
 		"MixinGuiIngame",
 		"MixinMinecraft",
 		"protocol4.MixinC00Handshake",
