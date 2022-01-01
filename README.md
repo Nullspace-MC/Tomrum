@@ -10,6 +10,7 @@ Adds some useful features for mainly creative dev:
 * Fullbright setting by sliding brightness slider to max.
 * Increased chat limit (8x length, i.e., 800 chars).
 * Mostly working sticky piston sides à la VanillaTweaks.
+* Make withers not darken the sky (toggleable).
 * Creative Mode sprinting while flying.
 * Creative Mode noclip (toggleable).
 * Creative Mode flight nodrift/flight inertia cancellation (toggleable).

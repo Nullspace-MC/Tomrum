@@ -14,6 +14,7 @@ public class Config {
 	public boolean extendedChat = true;
 	public boolean flightInertiaCancellation = false;
 	public boolean ignoreEntityWhenPlacing = true;
+	public boolean ignoreWitherSky = true;
 
 	public Config(File path) {
 		config = new Configuration(path);
@@ -31,6 +32,7 @@ public class Config {
 		this.extendedChat = config.getBoolean("extendedChat", Configuration.CATEGORY_GENERAL, this.extendedChat, "Extend chat 8x length (splits up messages and thus cannot be used for long commands).");
 		this.flightInertiaCancellation = config.getBoolean("flightInertiaCancellation", Configuration.CATEGORY_GENERAL, this.flightInertiaCancellation, "Stops creative flight drift.");
 		this.ignoreEntityWhenPlacing = config.getBoolean("ignoreEntityWhenPlacing", Configuration.CATEGORY_GENERAL, this.ignoreEntityWhenPlacing, "Allows you to place blocks inside yourself in creative mode.");
+		this.ignoreWitherSky = config.getBoolean("ignoreWitherSky", Configuration.CATEGORY_GENERAL, this.ignoreWitherSky, "Stop withers from darkening the sky.");
 
 		if (config.hasChanged()) {
 			config.save();

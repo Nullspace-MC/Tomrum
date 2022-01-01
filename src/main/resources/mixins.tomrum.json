@@ -21,6 +21,7 @@
 		"MixinGuiContainer",
 		"MixinGuiIngame",
 		"MixinMinecraft",
+		"MixinRenderWither",
 		"protocol4.MixinC00Handshake",
 		"protocol4.MixinS02PacketLoginSuccess",
 		"protocol4.MixinS0CPacketSpawnPlayer",
