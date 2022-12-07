@@ -2,11 +2,10 @@ buildscript {
 	repositories {
 		mavenCentral()
 		maven { url = "https://maven.minecraftforge.net" }
-		//maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
 	}
 	dependencies {
-		//classpath group: "com.anatawa12.forge", name: "ForgeGradle", version: "1.2-1.0.+", changing: true
-		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "1.2-SNAPSHOT", changing: true
+		classpath group: "com.anatawa12.forge", name: "ForgeGradle", version: "1.2-1.0.+", changing: true
+		//classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "1.2-SNAPSHOT", changing: true
 	}
 }
 
