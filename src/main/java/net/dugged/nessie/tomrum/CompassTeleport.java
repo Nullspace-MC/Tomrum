@@ -1,6 +1,6 @@
-package net.dugged.tomrum;
+package net.dugged.nessie.tomrum;
 
-import net.dugged.tomrum.mixins.IMixinMinecraft;
+import net.dugged.nessie.tomrum.mixins.IMixinMinecraft;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;

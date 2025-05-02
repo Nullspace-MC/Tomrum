@@ -1,7 +1,7 @@
-package net.dugged.tomrum.mixins.protocol4;
+package net.dugged.nessie.tomrum.mixins.protocol4;
 
 import com.mojang.util.UUIDTypeAdapter;
-import net.dugged.tomrum.Tomrum;
+import net.dugged.nessie.tomrum.Tomrum;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.play.server.S0CPacketSpawnPlayer;
 import org.spongepowered.asm.mixin.Mixin;

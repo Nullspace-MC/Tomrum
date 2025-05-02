@@ -1,4 +1,4 @@
-package net.dugged.tomrum;
+package net.dugged.nessie.tomrum;
 
 public class Reference {
 	public static final String MODID = "@MODID@";

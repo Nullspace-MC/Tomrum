@@ -1,4 +1,4 @@
-package net.dugged.tomrum.mixins;
+package net.dugged.nessie.tomrum.mixins;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Timer;

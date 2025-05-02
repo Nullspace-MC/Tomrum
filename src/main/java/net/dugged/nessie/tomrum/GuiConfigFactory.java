@@ -1,4 +1,4 @@
-package net.dugged.tomrum;
+package net.dugged.nessie.tomrum;
 
 import cpw.mods.fml.client.IModGuiFactory;
 import cpw.mods.fml.client.config.GuiConfig;

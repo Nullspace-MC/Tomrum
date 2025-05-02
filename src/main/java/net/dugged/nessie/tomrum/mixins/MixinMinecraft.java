@@ -1,7 +1,7 @@
-package net.dugged.tomrum.mixins;
+package net.dugged.nessie.tomrum.mixins;
 
-import net.dugged.tomrum.CompassTeleport;
-import net.dugged.tomrum.Tomrum;
+import net.dugged.nessie.tomrum.CompassTeleport;
+import net.dugged.nessie.tomrum.Tomrum;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;

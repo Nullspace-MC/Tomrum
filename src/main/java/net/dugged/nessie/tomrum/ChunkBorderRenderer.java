@@ -1,4 +1,4 @@
-package net.dugged.tomrum;
+package net.dugged.nessie.tomrum;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;

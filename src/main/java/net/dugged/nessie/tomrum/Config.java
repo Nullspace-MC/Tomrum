@@ -1,6 +1,6 @@
-package net.dugged.tomrum;
+package net.dugged.nessie.tomrum;
 
-import net.dugged.tomrum.GuiConfigFactory.IgnoreInGui;
+import net.dugged.nessie.tomrum.GuiConfigFactory.IgnoreInGui;
 import net.minecraftforge.common.config.Configuration;
 
 import java.io.File;

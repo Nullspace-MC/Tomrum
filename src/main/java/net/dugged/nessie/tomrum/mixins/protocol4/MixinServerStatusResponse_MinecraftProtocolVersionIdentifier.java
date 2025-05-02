@@ -1,6 +1,6 @@
-package net.dugged.tomrum.mixins.protocol4;
+package net.dugged.nessie.tomrum.mixins.protocol4;
 
-import net.dugged.tomrum.Tomrum;
+import net.dugged.nessie.tomrum.Tomrum;
 import net.minecraft.network.ServerStatusResponse;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;

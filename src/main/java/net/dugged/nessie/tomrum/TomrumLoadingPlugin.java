@@ -1,4 +1,4 @@
-package net.dugged.tomrum;
+package net.dugged.nessie.tomrum;
 
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import org.spongepowered.asm.launch.MixinBootstrap;

@@ -1,4 +1,4 @@
-package net.dugged.tomrum.mixins;
+package net.dugged.nessie.tomrum.mixins;
 
 import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.scoreboard.Score;

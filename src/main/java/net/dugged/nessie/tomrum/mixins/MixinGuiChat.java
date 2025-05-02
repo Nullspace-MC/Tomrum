@@ -1,7 +1,7 @@
-package net.dugged.tomrum.mixins;
+package net.dugged.nessie.tomrum.mixins;
 
 import com.google.common.base.Splitter;
-import net.dugged.tomrum.Tomrum;
+import net.dugged.nessie.tomrum.Tomrum;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.gui.GuiChat;
 import org.spongepowered.asm.mixin.Mixin;

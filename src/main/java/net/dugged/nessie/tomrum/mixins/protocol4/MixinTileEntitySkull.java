@@ -1,4 +1,4 @@
-package net.dugged.tomrum.mixins.protocol4;
+package net.dugged.nessie.tomrum.mixins.protocol4;
 
 import net.minecraft.tileentity.TileEntitySkull;
 import org.spongepowered.asm.lib.Opcodes;

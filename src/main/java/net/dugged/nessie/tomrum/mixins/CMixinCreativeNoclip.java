@@ -1,6 +1,6 @@
-package net.dugged.tomrum.mixins;
+package net.dugged.nessie.tomrum.mixins;
 
-import net.dugged.tomrum.Tomrum;
+import net.dugged.nessie.tomrum.Tomrum;
 import net.minecraft.client.multiplayer.PlayerControllerMP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

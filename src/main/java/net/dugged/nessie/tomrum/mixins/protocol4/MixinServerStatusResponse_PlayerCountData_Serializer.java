@@ -1,7 +1,7 @@
-package net.dugged.tomrum.mixins.protocol4;
+package net.dugged.nessie.tomrum.mixins.protocol4;
 
 import com.mojang.util.UUIDTypeAdapter;
-import net.dugged.tomrum.Tomrum;
+import net.dugged.nessie.tomrum.Tomrum;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;

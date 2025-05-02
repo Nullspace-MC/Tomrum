@@ -1,4 +1,4 @@
-package net.dugged.tomrum.mixins;
+package net.dugged.nessie.tomrum.mixins;
 
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.audio.SoundManager;
