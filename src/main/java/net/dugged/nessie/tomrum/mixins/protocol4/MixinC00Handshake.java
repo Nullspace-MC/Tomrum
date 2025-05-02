@@ -3,6 +3,7 @@ package net.dugged.nessie.tomrum.mixins.protocol4;
 import net.dugged.nessie.tomrum.Tomrum;
 import net.minecraft.network.EnumConnectionState;
 import net.minecraft.network.handshake.client.C00Handshake;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,15 +12,17 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(C00Handshake.class)
 public abstract class MixinC00Handshake {
-	// Stolen/inspired by https://github.com/killjoy1221/Protocol4/blob/master/src/main/java/mnm/mods/protocol/protocol/v4/Handshake_4.java
+    // Stolen/inspired by
+    // https://github.com/killjoy1221/Protocol4/blob/master/src/main/java/mnm/mods/protocol/protocol/v4/Handshake_4.java
 
-	@Shadow
-	private int protocolVersion;
+    @Shadow
+    private int field_149600_a;
 
-	@Inject(method = "<init>(ILjava/lang/String;ILnet/minecraft/network/EnumConnectionState;)V", at = @At("RETURN"))
-	private void onInit(final int protocol, final String ip, final int port, final EnumConnectionState state, CallbackInfo ci) {
-		if (Tomrum.INSTANCE.v4Protocol) {
-			this.protocolVersion = 4;
-		}
-	}
+    @Inject(method = "<init>(ILjava/lang/String;ILnet/minecraft/network/EnumConnectionState;)V", at = @At("RETURN"))
+    private void onInit(final int protocol, final String ip, final int port, final EnumConnectionState state,
+        CallbackInfo ci) {
+        if (Tomrum.INSTANCE.v4Protocol) {
+            this.field_149600_a = 4;
+        }
+    }
 }

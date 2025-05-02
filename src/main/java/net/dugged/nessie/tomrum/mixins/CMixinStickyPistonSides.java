@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.WorldSettings;
 import net.minecraft.world.storage.ISaveHandler;
+
 import org.spongepowered.asm.lib.Opcodes;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,79 +30,113 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 public abstract class CMixinStickyPistonSides {
-	@Mixin(Block.class)
-	public interface IMixinBlock {
-		@Accessor
-		IIcon getBlockIcon();
-	}
 
-	@Mixin(BlockPistonBase.class)
-	public static abstract class MixinBlockPistonBase {
-		@Shadow
-		@Final
-		private boolean isSticky;
+    @Mixin(Block.class)
+    public interface IMixinBlock {
 
-		@ModifyArg(method = "registerIcons", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/texture/IIconRegister;registerIcon(Ljava/lang/String;)Lnet/minecraft/util/IIcon;", ordinal = 0))
-		private String makeStickySide(final String texture) {
-			return this.isSticky && "piston_side".equals(texture) ? "tomrum:piston_side_sticky" : texture;
-		}
+        @Accessor
+        IIcon getBlockIcon();
+    }
 
-		@Inject(method = "getPistonBaseIcon", at = @At("RETURN"), cancellable = true)
-		private static void allowStickyTextures(final String texture, final CallbackInfoReturnable<IIcon> cir) {
-			if ("piston_side_sticky".equals(texture)) {
-				cir.setReturnValue(((IMixinBlock) Blocks.sticky_piston).getBlockIcon());
-			}
-		}
+    @Mixin(BlockPistonBase.class)
+    public static abstract class MixinBlockPistonBase {
 
-		@Redirect(method = "onBlockEventReceived", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/World;setBlock(IIILnet/minecraft/block/Block;II)Z", ordinal = 0), slice = @Slice(to = @At(value = "FIELD", target = "Lnet/minecraft/block/BlockPistonBase;isSticky:Z", opcode = Opcodes.GETFIELD, ordinal = 0)))
-		private boolean slimeTheRetraction(final World world, final int x, final int y, final int z, final Block block, final int meta, final int flags) {
-			return world.setBlock(x, y, z, block, meta | (world.isRemote && this.isSticky ? 8 : 0), flags);
-		}
-	}
+        @Shadow
+        @Final
+        private boolean isSticky;
 
-	@Mixin(BlockPistonExtension.class)
-	public static abstract class MixinBlockPistonExtension {
-		@Inject(method = "getIcon", at = @At("RETURN"), cancellable = true)
-		private void slimeTheExtension(final int side, final int meta, final CallbackInfoReturnable<IIcon> cir) {
-			if ((meta & 8) != 0) {
-				final String iconName = cir.getReturnValue().getIconName();
-				if ("piston_side".equals(iconName)) {
-					cir.setReturnValue(BlockPistonBase.getPistonBaseIcon("piston_side_sticky"));
-				} else if ("piston_top_normal".equals(iconName)) {
-					cir.setReturnValue(BlockPistonBase.getPistonBaseIcon("piston_top_sticky"));
-				}
-			}
-		}
-	}
+        @ModifyArg(
+            method = "registerBlockIcons",
+            at = @At(
+                value = "INVOKE",
+                target = "Lnet/minecraft/client/renderer/texture/IIconRegister;registerIcon(Ljava/lang/String;)Lnet/minecraft/util/IIcon;",
+                ordinal = 0))
+        private String makeStickySide(final String texture) {
+            return this.isSticky && "piston_side".equals(texture) ? "tomrum:piston_side_sticky" : texture;
+        }
 
-	@Mixin(RenderBlocks.class)
-	public static abstract class MixinRenderBlocks {
-		@SuppressWarnings("InvalidInjectorMethodSignature")
-		@Inject(method = "renderPistonExtension", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/IBlockAccess;getBlockMetadata(III)I"), locals = LocalCapture.CAPTURE_FAILHARD)
-		public void determineIfSticky(final Block block, final int x, final int y, final int z, final boolean isShort, final CallbackInfoReturnable<Boolean> cir, final int meta) {
-			Tomrum.INSTANCE.pistonExtensionTexture = (meta & 8) != 0 ? "piston_side_sticky" : "piston_side";
-		}
+        @Inject(method = "getPistonBaseIcon", at = @At("RETURN"), cancellable = true)
+        private static void allowStickyTextures(final String texture, final CallbackInfoReturnable<IIcon> cir) {
+            if ("piston_side_sticky".equals(texture)) {
+                cir.setReturnValue(((IMixinBlock) Blocks.sticky_piston).getBlockIcon());
+            }
+        }
 
-		@ModifyArg(method = {"renderPistonRodUD", "renderPistonRodSN", "renderPistonRodEW"}, at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockPistonBase;getPistonBaseIcon(Ljava/lang/String;)Lnet/minecraft/util/IIcon;"))
-		private String onRenderPistonExtension(final String value) {
-			return Tomrum.INSTANCE.pistonExtensionTexture;
-		}
-	}
+        @Redirect(
+            method = "onBlockEventReceived",
+            at = @At(
+                value = "INVOKE",
+                target = "Lnet/minecraft/world/World;setBlock(IIILnet/minecraft/block/Block;II)Z",
+                ordinal = 0),
+            slice = @Slice(
+                to = @At(
+                    value = "FIELD",
+                    target = "Lnet/minecraft/block/BlockPistonBase;isSticky:Z",
+                    opcode = Opcodes.GETFIELD,
+                    ordinal = 0)))
+        private boolean slimeTheRetraction(final World world, final int x, final int y, final int z, final Block block,
+            final int meta, final int flags) {
+            return world.setBlock(x, y, z, block, meta | (world.isRemote && this.isSticky ? 8 : 0), flags);
+        }
+    }
 
-	@Mixin(WorldClient.class)
-	public static abstract class MixinWorldClient extends World {
-		public MixinWorldClient(final ISaveHandler ish, final String name, final WorldProvider wp, final WorldSettings ws, final Profiler p) {
-			super(ish, name, wp, ws, p);
-		}
+    @Mixin(BlockPistonExtension.class)
+    public static abstract class MixinBlockPistonExtension {
 
-		@Inject(method = "func_147492_c", at = @At("HEAD"), cancellable = true)
-		private void onRetractionBaseB36(final int x, final int y, final int z, final Block block, final int meta, final CallbackInfoReturnable<Boolean> cir) {
-			if (block == Blocks.piston_extension && this.getBlock(x, y, z) == Blocks.piston_extension) {
-				final TileEntity te = this.getTileEntity(x, y, z);
-				if (te instanceof TileEntityPiston && !((TileEntityPiston) te).isExtending()) {
-					cir.setReturnValue(false);
-				}
-			}
-		}
-	}
+        @Inject(method = "getIcon", at = @At("RETURN"), cancellable = true)
+        private void slimeTheExtension(final int side, final int meta, final CallbackInfoReturnable<IIcon> cir) {
+            if ((meta & 8) != 0) {
+                final String iconName = cir.getReturnValue()
+                    .getIconName();
+                if ("piston_side".equals(iconName)) {
+                    cir.setReturnValue(BlockPistonBase.getPistonBaseIcon("piston_side_sticky"));
+                } else if ("piston_top_normal".equals(iconName)) {
+                    cir.setReturnValue(BlockPistonBase.getPistonBaseIcon("piston_top_sticky"));
+                }
+            }
+        }
+    }
+
+    @Mixin(RenderBlocks.class)
+    public static abstract class MixinRenderBlocks {
+
+        @SuppressWarnings("InvalidInjectorMethodSignature")
+        @Inject(
+            method = "renderPistonExtension",
+            at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/IBlockAccess;getBlockMetadata(III)I"),
+            locals = LocalCapture.CAPTURE_FAILHARD)
+        public void determineIfSticky(final Block block, final int x, final int y, final int z, final boolean isShort,
+            final CallbackInfoReturnable<Boolean> cir, final int meta) {
+            Tomrum.INSTANCE.pistonExtensionTexture = (meta & 8) != 0 ? "piston_side_sticky" : "piston_side";
+        }
+
+        @ModifyArg(
+            method = { "renderPistonRodUD", "renderPistonRodSN", "renderPistonRodEW" },
+            at = @At(
+                value = "INVOKE",
+                target = "Lnet/minecraft/block/BlockPistonBase;getPistonBaseIcon(Ljava/lang/String;)Lnet/minecraft/util/IIcon;"))
+        private String onRenderPistonExtension(final String value) {
+            return Tomrum.INSTANCE.pistonExtensionTexture;
+        }
+    }
+
+    @Mixin(WorldClient.class)
+    public static abstract class MixinWorldClient extends World {
+
+        public MixinWorldClient(final ISaveHandler ish, final String name, final WorldProvider wp,
+            final WorldSettings ws, final Profiler p) {
+            super(ish, name, wp, ws, p);
+        }
+
+        @Inject(method = "func_147492_c", at = @At("HEAD"), cancellable = true)
+        private void onRetractionBaseB36(final int x, final int y, final int z, final Block block, final int meta,
+            final CallbackInfoReturnable<Boolean> cir) {
+            if (block == Blocks.piston_extension && this.getBlock(x, y, z) == Blocks.piston_extension) {
+                final TileEntity te = this.getTileEntity(x, y, z);
+                if (te instanceof TileEntityPiston && !((TileEntityPiston) te).isExtending()) {
+                    cir.setReturnValue(false);
+                }
+            }
+        }
+    }
 }

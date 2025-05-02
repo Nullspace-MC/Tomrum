@@ -1,32 +1,7 @@
 {
 	"required": true,
-	"package": "net.dugged.nessie.tomrum.mixins",
-	"refmap": "mixins.tomrum.refmap.json",
 	"minVersion": "0.7.3",
-	"compatibilityLevel": "JAVA_8",
-	"mixins": [
-		"CMixinBlinkingPistonFix$MixinTileEntityPiston",
-		"CMixinBlinkingPistonFix$MixinTileEntityRendererPiston",
-		"CMixinCreativeNoclip$MixinPlayerControllerMP",
-		"CMixinCreativeNoclip$MixinTileEntityPiston",
-		"CMixinStickyPistonSides$IMixinBlock",
-		"CMixinStickyPistonSides$MixinBlockPistonBase",
-		"CMixinStickyPistonSides$MixinBlockPistonExtension",
-		"CMixinStickyPistonSides$MixinRenderBlocks",
-		"CMixinStickyPistonSides$MixinWorldClient",
-		"IMixinMinecraft",
-		"ISoundHandler",
-		"MixinGameSettings",
-		"MixinGuiChat",
-		"MixinGuiContainer",
-		"MixinGuiIngame",
-		"MixinMinecraft",
-		"MixinRenderWither",
-		"protocol4.MixinC00Handshake",
-		"protocol4.MixinS02PacketLoginSuccess",
-		"protocol4.MixinS0CPacketSpawnPlayer",
-		"protocol4.MixinServerStatusResponse_MinecraftProtocolVersionIdentifier",
-		"protocol4.MixinServerStatusResponse_PlayerCountData_Serializer",
-		"protocol4.MixinTileEntitySkull"
-	]
+	"refmap": "mixins.tomrum.refmap.json",
+	"target": "@env(DEFAULT)",
+	"compatibilityLevel": "JAVA_8"
 }
